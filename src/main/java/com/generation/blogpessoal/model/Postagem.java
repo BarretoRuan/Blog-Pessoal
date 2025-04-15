@@ -11,26 +11,28 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+
 //vai transformal a class em tabela artaves do JPA
-@Entity 
+@Entity
 //define o nome da tabela, caso o não defina criará um nome generico
-@Table(name = "tb_postagens") 
+@Table(name = "tb_postagens")
 public class Postagem {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	//Pode ser tanto preenchido como tambem nulo
-	@NotBlank 
+
+	// Pode ser tanto preenchido como tambem nulo
+	@NotBlank
 	// Respeitar o campo e ser preenchido com o minimoe o max de caracteres
-	@Size (min = 3 , max = 100) 
+	@Size(min = 3, max = 100)
 	private String titulo;
-	
-	@NotBlank 
-	@Size (min = 10 , max = 1000)
+
+	@NotBlank
+	@Size(min = 10, max = 1000)
 	private String texto;
-	
+
+	// Pega data e hora do sistema automaticamente e guarda no sistema
 	@UpdateTimestamp
 	private LocalDate dataDate;
 
@@ -65,8 +67,5 @@ public class Postagem {
 	public void setDataDate(LocalDate dataDate) {
 		this.dataDate = dataDate;
 	}
-	
-	
-	
-	
+
 }
