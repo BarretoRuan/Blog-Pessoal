@@ -4,10 +4,13 @@ import java.time.LocalDate;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -19,12 +22,14 @@ import jakarta.validation.constraints.Size;
 public class Postagem {
 
 	@Id
+	// class primaria
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	// AUTOCREMENT
 	private Long id;
 
-	// Pode ser tanto preenchido como tambem nulo
+	// Pode ser preenchido mas tambem pode ser nulo (VARCHAR)
 	@NotBlank
-	// Respeitar o campo e ser preenchido com o minimoe o max de caracteres
+	// Respeitar o campo e ser preenchido com o minimo e o max de caracteres
 	@Size(min = 3, max = 100)
 	private String titulo;
 
@@ -35,6 +40,12 @@ public class Postagem {
 	// Pega data e hora do sistema automaticamente e guarda no sistema
 	@UpdateTimestamp
 	private LocalDate dataDate;
+
+	// Vai definar a chave estrangeira
+	@ManyToOne
+	// Vai ignorar as propriedades de postagem
+	@JsonIgnoreProperties("postagem")
+	private Tema tema;
 
 	public Long getId() {
 		return id;
@@ -66,6 +77,14 @@ public class Postagem {
 
 	public void setDataDate(LocalDate dataDate) {
 		this.dataDate = dataDate;
+	}
+
+	public Tema getTema() {
+		return tema;
+	}
+
+	public void setTema(Tema tema) {
+		this.tema = tema;
 	}
 
 }
