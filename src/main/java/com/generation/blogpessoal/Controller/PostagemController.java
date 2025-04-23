@@ -24,9 +24,13 @@ import com.generation.blogpessoal.repository.TemaRepository;
 
 import jakarta.validation.Valid;
 
-//passa tudo por ela e verifica se vai "continuar"
+/*
+* @RestController - passa tudo por ela e verifica se vai "continuar"
+* @RequestMapping("/postagens") - Mapeia o caminho
+* @CrossOrigin(origins = "*", allowedHeaders = "*")
+Permite que esse controller aceite requisições de qualquer origem e com qualquer cabeçalho
+*/
 @RestController
-//Mapeia o caminho
 @RequestMapping("/postagens")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PostagemController {
@@ -37,13 +41,12 @@ public class PostagemController {
 	@Autowired
 	private TemaRepository temaRepository;
 
-	@GetMapping
-	// vai mostrar uma lista preenchida do objeto
 	/*
 	 * ResponseEntity<List<Postagem>> -> retorno do método ResponseEntity é para
 	 * tratar a resposta http, por exemplo 201 como create, 404 como not found,
 	 * opcional dependendo do contexto
 	 */
+	@GetMapping
 	public ResponseEntity<List<Postagem>> getAll() {
 		return ResponseEntity.ok(postagemRepository.findAll());
 	}
@@ -51,15 +54,11 @@ public class PostagemController {
 	// Indica que esse método será chamado quando alguém acessar GET /{id}
 	@GetMapping("/{id}")
 	public ResponseEntity<Postagem> getById(@PathVariable Long id) {
+		return postagemRepository.findById(id) // Tenta encontrar uma postagem com o ID informado no banco de dados
 
-		// Tenta encontrar uma postagem com o ID informado no banco de dados
-		return postagemRepository.findById(id)
-
-				// Se encontrar, retorna uma resposta HTTP 200 (OK) com a postagem no corpo
-				.map(resposta -> ResponseEntity.ok(resposta))
-
-				// Se não encontrar, retorna uma resposta HTTP 404 (Not Found)
-				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+				.map(resposta -> ResponseEntity.ok(resposta)) // Se encontrar, retorna uma resposta HTTP 200 (OK) com a postagem no corpo
+				
+				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build()); // Se não encontrar, retorna uma resposta HTTP 404 (Not Found)
 	}
 
 	@GetMapping("/titulo/{titulo}")
@@ -88,22 +87,17 @@ public class PostagemController {
 		}
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
-
-	// Indica que, se tudo ocorrer bem, o método retornará HTTP 204 (No Content)
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	// Mapeia requisições DELETE para a URL /{id}
-	@DeleteMapping("/{id}")
+	
+	@ResponseStatus(HttpStatus.NO_CONTENT) // Indica que, se tudo ocorrer bem, o método retornará HTTP 204 (No Content)
+	@DeleteMapping("/{id}") // Mapeia requisições DELETE para a URL /{id}
 	public void delete(@PathVariable Long id) {
-
-		// Tenta encontrar uma postagem com o ID fornecido
-		Optional<Postagem> postagem = postagemRepository.findById(id);
-
-		// Se não encontrar a postagem, lança uma exceção com erro 404 (Not Found)
-		if (postagem.isEmpty())
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-
-		// Se encontrar, deleta a postagem do banco de dados
-		postagemRepository.deleteById(id);
+	
+		Optional<Postagem> postagem = postagemRepository.findById(id); // Tenta encontrar uma postagem com o ID fornecido
+		
+		if (postagem.isEmpty()) 
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND); // Se não encontrar a postagem, lança uma exceção com erro 404 (Not Found)
+		
+		postagemRepository.deleteById(id); // Se encontrar, deleta a postagem do banco de dados
 	}
 
 }
