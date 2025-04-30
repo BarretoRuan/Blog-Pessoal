@@ -10,10 +10,12 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.generation</groupId>
-	<artifactId>blogpessoal</artifactId>
+	<artifactId>
+	blogpessoal</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>blogpessoal</name>
-	<description>Projeto Blog pessoal</description>
+	<description>Projeto
+	Blog pessoal</description>
 	<url />
 	<licenses>
 		<license />
@@ -90,9 +92,17 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
 	</dependencies>
-
-	<build>
+	* <build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
