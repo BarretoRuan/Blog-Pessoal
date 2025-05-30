@@ -1,8 +1,6 @@
 package com.generation.blogpessoal.model;
 
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -38,7 +36,15 @@ public class Postagem {
 	@UpdateTimestamp
 	private Instant dataDate;
 
-	
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	@ManyToOne // Vai definar a chave estrangeira
 	@JsonIgnoreProperties("postagem") // Vai ignorar as propriedades de postagem
 	private Tema tema;
@@ -72,28 +78,20 @@ public class Postagem {
 	}
 
 
-	public Instant getDataDate() {
-		return dataDate;
-	}
-
-	public void setDataDate(Instant dataDate) {
-		this.dataDate = dataDate;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
 	public Tema getTema() {
 		return tema;
 	}
 
 	public void setTema(Tema tema) {
 		this.tema = tema;
+	}
+
+	public Instant getDataDate() {
+		return dataDate;
+	}
+
+	public void setDataDate(Instant dataDate) {
+		this.dataDate = dataDate;
 	}
 
 }
