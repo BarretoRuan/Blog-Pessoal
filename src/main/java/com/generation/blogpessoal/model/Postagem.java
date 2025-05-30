@@ -2,6 +2,7 @@ package com.generation.blogpessoal.model;
 
 import java.time.Instant;
 
+
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -34,7 +35,7 @@ public class Postagem {
 
 	// Pega data e hora do sistema automaticamente e guarda no sistema
 	@UpdateTimestamp
-	private Instant dataDate;
+	private Instant data;
 
 
 	public Usuario getUsuario() {
@@ -86,12 +87,13 @@ public class Postagem {
 		this.tema = tema;
 	}
 
-	public Instant getDataDate() {
-		return dataDate;
+	public Instant getData() {
+		return data;
 	}
 
-	public void setDataDate(Instant dataDate) {
-		this.dataDate = dataDate;
+	public void setData(Instant data) {
+		this.data = data;
 	}
+	
 
 }
