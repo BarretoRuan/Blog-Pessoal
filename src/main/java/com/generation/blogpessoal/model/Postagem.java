@@ -1,6 +1,8 @@
 package com.generation.blogpessoal.model;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -34,7 +36,7 @@ public class Postagem {
 
 	// Pega data e hora do sistema automaticamente e guarda no sistema
 	@UpdateTimestamp
-	private LocalDate dataDate;
+	private Instant dataDate;
 
 	
 	@ManyToOne // Vai definar a chave estrangeira
@@ -69,12 +71,21 @@ public class Postagem {
 		this.texto = texto;
 	}
 
-	public LocalDate getDataDate() {
+
+	public Instant getDataDate() {
 		return dataDate;
 	}
 
-	public void setDataDate(LocalDate dataDate) {
+	public void setDataDate(Instant dataDate) {
 		this.dataDate = dataDate;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public Tema getTema() {
